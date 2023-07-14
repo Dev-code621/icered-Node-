@@ -1,0 +1,4 @@
+node_modules
+docker-compose.yml
+firebase.serviceAccount.json
+.DS_Store

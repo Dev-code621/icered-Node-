@@ -1,0 +1,6 @@
+{
+    "1.0.1": "signaling-svc-keaq2.ondigitalocean.app",
+    "stable": "signaling-svc-keaq2.ondigitalocean.app",
+    "nightly": "staging.icered.com",
+    "staging": "staging.icered.com"
+}

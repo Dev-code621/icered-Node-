@@ -1,0 +1,26 @@
+# This is an example Starter pipeline configuration
+# Use a skeleton to build, test and deploy using manual and parallel steps
+# -----
+# You can specify a custom docker image from Docker Hub as your build environment.
+image: atlassian/default-image:2
+
+pipelines:
+  branches:
+    master:
+      # The following deployment steps will be executed for each pipeline run. To configure your steps and conditionally deploy see https://support.atlassian.com/bitbucket-cloud/docs/configure-bitbucket-pipelinesyml/
+      - step:
+          name: 'Build'
+          deployment: Build
+          script:
+            - ssh pipeline@$SERVER_IP "BITBUCKET_COMMIT=$BITBUCKET_COMMIT VERSION=$VERSION SERVER_IP=$SERVER_IP MONGO_HOST=$MONGO_HOST_DEV MONGO_USER=$MONGO_USER MONGO_PASS=$MONGO_PASS MONGO_DBNAME=$MONGO_DBNAME MONGO_SRV=$MONGO_SRV TWILIO_ACCOUNT_SID=$TWILIO_ACCOUNT_SID TWILIO_AUTH_TOKEN=$TWILIO_AUTH_TOKEN SENDGRID_API_KEY=$SENDGRID_API_KEY JWT_SECRET=$JWT_SECRET AWS_ID=$AWS_ID AWS_SECRET=$AWS_SECRET AWS_VIDEO_BUCKET=$AWS_VIDEO_BUCKET AWS_BUCKET_NAME=$AWS_BUCKET_NAME ALGOLIA_CLIENT=$ALGOLIA_CLIENT ALGOLIA_SECRET=$ALGOLIA_SECRET bash -s" < docker/build.sh
+            - ssh pipeline@$SERVER_IP "docker tag registry.digitalocean.com/icered-services/signaling-svc $VERSION"
+      - step:
+          name: 'Staging'
+          deployment: Staging
+          script:
+            - ssh pipeline@$SERVER_IP "bash -s" < docker/run.sh
+      - step:
+          name: 'Deploy'
+          deployment: Deploy
+          script:
+            - ssh pipeline@$SERVER_IP "docker push --all-tags registry.digitalocean.com/icered-services/signaling-svc"

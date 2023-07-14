@@ -1,0 +1,42 @@
+version: '3.3'
+services:    
+  signaling-svc:
+    build:
+      context: ./signaling-svc
+      args: 
+        NODE_ENV: development
+      # MONGO_USER: icered_admin
+        # MONGO_PASS: kjaYkKQeyPtDj6qy
+        # MONGO_HOST: members.br06s.mongodb.net
+        # MONGO_DBNAME: icered
+        MONGO_USER: doadmin
+        MONGO_PASS: 6293oH5T04Ecj8wU
+        MONGO_HOST: db-mongodb-nyc3-10145-87672c33.mongo.ondigitalocean.com
+        MONGO_DBNAME: admin
+        MONGO_SRV: 'true'
+        TWILIO_ACCOUNT_SID: ACf8acc546d93765d6fafbb254e16bd9c5
+        TWILIO_AUTH_TOKEN: ea1f492793b6289b3c09174f32d661a1
+        SENDGRID_API_KEY: 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
+        JWT_SECRET: SUPER_SECRET
+        AWS_ID: AKIA3KBGPQQXW3EG62BF
+        AWS_SECRET: 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
+        AWS_BUCKET_NAME: icered-images
+        AWS_VIDEO_BUCKET: icered-videos
+        ALGOLIA_CLIENT: R3TF5O7HGN
+        ALGOLIA_SECRET: c19b68b795f0965cb5885af4c72bd2ab
+        ETHERIUM_PRIVATE_KEY: ""
+        ETHERIUM_BLOCKCHAIN_ADDRESS: ""
+        VERSION: "1.0.1"
+    container_name: signaling-svc
+    volumes:
+      - ./signaling-svc:/usr/src/app
+    restart: always
+    ports:
+      - 8340:8340
+      - 8381:4000
+      - 8342:8342
+
+networks:
+  default:
+    external:
+      name: icered

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebRTC Web Test</title>
+    <script>
+        const ROOM_ID = "<%= roomId %>";
+        window.ROOM_ID = "<%= roomId %>";
+    </script>
+    <script src="/main.js" defer></script>
+    <style>
+        textarea#jwt {
+            position: fixed;
+            right: 0;
+            top: 0;
+            padding: 30px 15px;
+            height: calc(100% - 100px);
+            border: none;
+            background: #cf3131;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        div#main {
+            position: absolute;
+            width: calc(100% - 205px);
+            background: #161616;
+            height: 100%;
+        }
+
+        html, * {
+            padding: 0 0;
+            margin: 0 0;
+        }
+
+        div#sidebar {
+            background: #fff;
+            width: 209px;
+            height: 100%;
+            float: left;
+            position: relative;
+        }
+
+        button#controls-camera {
+            position: absolute;
+            width: 100%;
+            font-weight: bold;
+            background: #cf3132;
+            color: #fff;
+            border: none;
+            padding: 15px 0;
+        }
+
+        div#my-controls {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 45px;
+        }
+       #video-grid {
+            display: inline-grid;
+            grid-template-columns: repeat(auto-fill, 200px);
+            grid-auto-rows: 200px;
+            width: 80%;
+            height: 100%;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        button#join {
+            position: fixed;
+            bottom: 0;
+            border: none;
+            background: #3ac53a;
+            right: 0;
+            color: #fff;
+            width: 205px;
+            padding: 13px 0;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div id="top-bar">
+
+        </div>
+        <div id="main">
+            <div id="sidebar">
+                <div id="header">
+
+                </div>
+                <div id="participants">
+
+                </div>
+                <div id="my-controls">
+                    <button id="controls-camera" onclick="window.goLive()">Go Live</button>
+                </div>
+            </div>
+            <div id="video-grid">
+
+            </div>
+            <textarea id="jwt"></textarea>
+            <button id="join" onclick="window.join()">Join with JWT</button>
+        </div>
+    </div>
+</body>
+</html>
